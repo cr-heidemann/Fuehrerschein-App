@@ -1,7 +1,7 @@
 {
     "ID":"", 
-    "category1":"",
-    "category2":"",
+    "category":"",
+    "subcategory":"",
     "question":"", 
     "answers":[], 
     "right_answers":[], 
