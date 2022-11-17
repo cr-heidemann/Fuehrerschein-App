@@ -1,9 +1,0 @@
-{
-    "ID":"", 
-    "category":"",
-    "subcategory":"",
-    "question":"", 
-    "answers":[], 
-    "right_answers":[], 
-    "points":"", 
-    "src":""}
