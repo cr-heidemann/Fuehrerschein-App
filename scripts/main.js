@@ -70,7 +70,7 @@ window.onload = function() {
     // The key is the ID of the quiz element, same as what we pass to the Quiz object as the first argument.
 
 
-    quizzes['quiz-4'] = new Quiz('quiz-4', [
+    quizzes['1.1.01-001'] = new Quiz('1.1.01-001', [
         ['a', 'b']
     ]);
    
