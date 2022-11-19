@@ -71,24 +71,21 @@ with open("data//questions.json", "w", encoding="utf-8") as f:
                     
     json.dump(json_dict,f)
     
-with open("data//quizzes.txt", "w", encoding="utf-8") as f:
-    f.write("//copy the input of the file data/quizzes.txt to main.js line 72\n")
-    print("copy this into main.js line 72 OR copy the input of the file data/quizzes.txt to main.js line 72\n")
-    for key, value in json_dict.items():
-        #quizzes['1.1.01-003'] = new Quiz('1.1.01-003', [['a', 'b']]);
-        ID=key
-        answers=""
-        for index in range(len(json_dict[key]["right_answers"])):
-            answers+="'"+json_dict[key]["right_answers"][index]+"'"
-            if index != len(json_dict[key]["right_answers"]) -1:
-                answers+=","
-            #print(index, len(json_dict[key]["right_answers"]))
-            #print(json_dict[key]["right_answers"][index])
-        #print(answers)
-        q="    quizzes['" + ID + "'] = new Quiz('" + ID + "', [[" + answers + "]]);"
-        print(q)
-        f.write(q)
-        f.write("\n")
+
+print("making script file for each question html")
+for key, value in json_dict.items():
+    with open("data//script_template.js", "r", encoding="utf-8") as f:
+        template=f.read()
+    ID=key
+    answers=""
+    for index in range(len(json_dict[key]["right_answers"])):
+        answers+="'"+json_dict[key]["right_answers"][index]+"'"
+        if index != len(json_dict[key]["right_answers"]) -1:
+            answers+=","
+    q="quizzes['" + ID + "'] = new Quiz('" + ID + "', [[" + answers + "]]);"
+    template=template.replace("{{quiz_object}}", q)
+    with open("scripts//"+ID+".js", "w", encoding="utf-8") as file:
+        file.write(template)
        
 
     
