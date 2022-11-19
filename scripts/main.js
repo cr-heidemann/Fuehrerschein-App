@@ -66,13 +66,33 @@ function handleAnswers(quiz, question, no, correct) {
 }
 
 window.onload = function() {
+    //quizzes['1.1.01-003'] = new Quiz('1.1.01-003', [['a', 'b']]);
+    //quizzes['1.1.01-003'] = new Quiz('1.1.01-003', [['a', 'b']]);
+    //copy the input of the file data/quizzes.txt to main.js line 72
+    quizzes['1.1.01-001'] = new Quiz('1.1.01-001', [['a','b']]);
+    quizzes['1.1.01-002'] = new Quiz('1.1.01-002', [['a','b','c']]);
+    quizzes['1.1.01-003'] = new Quiz('1.1.01-003', [['a','b']]);
+    quizzes['1.1.01-004'] = new Quiz('1.1.01-004', [['a','b','c']]);
+    quizzes['1.1.01-101'] = new Quiz('1.1.01-101', [['a','b','c']]);
+    quizzes['1.1.01-102'] = new Quiz('1.1.01-102', [['a','b','c']]);
+    quizzes['1.1.01-103'] = new Quiz('1.1.01-103', [['a','b','c']]);
+    quizzes['1.1.01-104'] = new Quiz('1.1.01-104', [['a','b']]);
+    quizzes['1.1.01-107'] = new Quiz('1.1.01-107', [['a','b']]);
+    quizzes['1.1.01-108'] = new Quiz('1.1.01-108', [['a','b','c']]);
+    quizzes['1.1.01-109'] = new Quiz('1.1.01-109', [['a','b']]);
+    quizzes['1.1.01-110'] = new Quiz('1.1.01-110', [['a','b','c']]);
+    quizzes['1.1.01-111'] = new Quiz('1.1.01-111', [['a','b']]);
+    quizzes['1.1.01-112'] = new Quiz('1.1.01-112', [['a','b','c']]);
+    quizzes['1.1.01-113'] = new Quiz('1.1.01-113', [['a','b','c']]);
+    quizzes['2.1.01-001'] = new Quiz('2.1.01-001', [['a','b']]);
+    quizzes['2.1.01-003'] = new Quiz('2.1.01-003', [['a','b']]);
+    quizzes['2.1.01-004'] = new Quiz('2.1.01-004', [['a','b']])
     // Create quiz instances for each quiz and add them to the quizzes map.
     // The key is the ID of the quiz element, same as what we pass to the Quiz object as the first argument.
-
-
-    quizzes['1.1.01-001'] = new Quiz('1.1.01-001', [
-        ['a', 'b']
-    ]);
+    //quizzes['1.1.01-003'] = new Quiz('1.1.01-003', [['a', 'b']]);
+      
+    
+   
    
 };
 
