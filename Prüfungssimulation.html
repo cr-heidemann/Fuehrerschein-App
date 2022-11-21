@@ -16,6 +16,40 @@
     </head>
 
     <body>
-        
+        <body>
+            <!-- Quiz Results -->
+            <!-- For this multi quiz, we'll use the same result element and move it to active quiz when the answer button is pressed. -->
+            <div id="quiz-result" class="card">
+                You Scored <span id="quiz-percent"></span>% - <span id="quiz-score"></span>/<span id="quiz-max-score"></span><br/>
+            </div>
+    
+    
+            <!-- Quiz 1 -->
+            <div id="prüfung">
+    
+                <h2>Gefahrenlehre - Grundstoff - 1.1.01-001</h2>
+                Maxmimal 10 Fehlerpunkte erlaubt, es dürfen nicht 2 Fragen mit 5 Fehlerpunkten falsch beantwortet werden.
+                <!-- Question 1 -->
+                <div class="card quizlib-question">
+                    <div class="quizlib-question-title"><h3>Was versteht man unter defensivem Fahren?</h3></div>
+                    <div class="quizlib-question-answers">
+                        <ul>
+                            
+                            <li><label><input type="checkbox" name="q1" value="a">Nicht auf dem eigenen Recht bestehen</label></li>
+                            <li><label><input type="checkbox" name="q1" value="b">Mit Fehlern anderer rechnen</label></li>
+                            <li><label><input type="checkbox" name="q1" value="c">Vorsorglich an jeder Kreuzung anhalten</label></li>
+    
+                            
+                        </ul>
+                    </div>
+                </div>
+                <!-- Answer Button. Here, we pass the ID of the quiz element (the parent of this button) to the showResults function.  -->
+                <button type="button" onclick="showResults(this.parentNode.id);">Antworten prüfen</button>
+            </div>
+            <div>
+                <a href="index.html">Zurück</a>
+                
+            </div>
+
     </body>
 </html>
