@@ -71,7 +71,7 @@ window.onload = function() {
     // The key is the ID of the quiz element, same as what we pass to the Quiz object as the first argument.
     //quizzes['1.1.01-003'] = new Quiz('1.1.01-003', [['a', 'b']]);
     
-    {{quiz_object}}
+    quizzes['1.1.01-109'] = new Quiz('1.1.01-109', [['a','b']]);
     
    
    
