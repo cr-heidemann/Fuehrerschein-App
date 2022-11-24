@@ -29,20 +29,37 @@ async function getQuestions() {
         }
     }
           
-    console.log(grundstoff);
-    console.log(zusatzstoff);
-    //grundstoff_selected=getRandom(grundstoff,20);
-    //zusatzstoff_selected=getRandom(zusatzstoff,10);
-    //const fragen = grundstoff_selected.concat(zusatzstoff_selected); 
-    /*let questions = fragen
+    grundstoff_selected=getRandom(grundstoff,20);
+    zusatzstoff_selected=getRandom(zusatzstoff,5);
+    const fragen = grundstoff_selected.concat(zusatzstoff_selected); 
+    let questions_2 = fragen
     .map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value)
-    */
+    return questions_2
     }
+ 
 
-getQuestions()
+/*<li><label><input type="checkbox" name="q1" value="a">Nicht auf dem eigenen Recht bestehen</label></li>
+                            <li><label><input type="checkbox" name="q1" value="b">Mit Fehlern anderer rechnen</label></li>
+                            <li><label><input type="checkbox" name="q1" value="c">Vorsorglich an jeder Kreuzung anhalten</label></li>
+                            */
+async function fill_quiz(array){
+    let questions = await get_Questions();
+    const quest = document.getElementById('questions');
 
+}
+/*
+async function prepare_quiz(){ 
+    answers=[]
+    let questions = await getQuestions();
+    //console.log(questions);
+    for (const [k, v] of Object.entries(questions)){
+        answers.push(v)     
+    }
+    return answers
+}
+*/
 /**
 * Try this example at https://alpsquid.github.io/quizlib
 */
@@ -112,15 +129,15 @@ getQuestions()
 
  //Some code that takes the questions array and fills the Quiz questions in the html
  
- window.onload = function() {
+ window.onload = async function() {
      
      // Create quiz instances for each quiz and add them to the quizzes map.
      // The key is the ID of the quiz element, same as what we pass to the Quiz object as the first argument.
      //quizzes['1.1.01-003'] = new Quiz('1.1.01-003', [['a', 'b']]);
      //right_answers=[] nested list of arrays with all right answers from above
      //quizzes['prüfung'] = new Quiz('prüfung', [['a','b'],[]]); 
-     
-    
+    //await
+   //document.getElementById('frage_01').textContent = 'Hello \nlcr World!';;
     
  };
  
