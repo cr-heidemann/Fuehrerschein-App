@@ -8,6 +8,7 @@
         <script type="text/javascript" src="/scripts/quizlib.1.0.1.min.js"></script>
         <!-- Dev: <script type="text/javascript" src="../../src/quizlib.js"></script>-->
         <script type="text/javascript" src="/scripts/{{ID}}.js"></script>
+        <script type="text/javascript" src="../../scripts/randomquestion.js"></script>
         <link rel="stylesheet" type="text/css" href="/styles/quizlib.min.css" media="screen">
         <!-- Dev: <link rel="stylesheet" type="text/css" href="../../src/quizlib.css" media="screen">-->
         <link rel="stylesheet" type="text/css" href="/styles/stylesheet.css" media="screen">
@@ -42,8 +43,9 @@
             <button type="button" onclick="showResults(this.parentNode.id);">Antworten prüfen</button>
         </div>
         <div>
-            <a href="{{before}}">Zurück</a>
-            <a href="{{after}}">Weiter</a>
+            <a href="{{before}}"><button>Zurück</button></a>
+            <a href="{{after}}"><button>Weiter</button></a>
+            <button onclick="{{fun}}">Zufällig</button>
         </div>
     </body>
 </html>

@@ -15,11 +15,13 @@ def process(path):
 
 
 def make_html(files, json):
+    
     with open("data//quiz.template.html", "r", encoding="utf-8") as temp:
         template=temp.read()
     ID=json["ID"]
     category=json["category"]
-    subcategory=json["subcategory"]
+    subcategories={"Gefahrenlehre":"Gefahrenlehre", "Verhalten im Straßenverkehr":"Verhalten", "Vorfahrt, Vorrang":"Vorfahrt"}
+    subcategory=subcategories[json["subcategory"]]
     points=json["points"]
     path="questions//" + subcategory + "//" + ID + ".html"
     
@@ -42,15 +44,21 @@ def make_html(files, json):
         # <li><label><input type="checkbox" name="q1" value="{{key}}"> {{value}}</label></li>
         answers+='                        <li><label><input type="checkbox" name="q1" value="'+key+'">'+value+'</label></li>' +"\n"
         
+    map_category_func={"gefahrenlehre":"zufaellig_button_gefahrenlehre()"}
+    fun=""
+    for key, value in map_category_func.items():
+        if subcategory.lower() in key:
+            fun=value
+            
     template=template.replace("{{ID}}", ID)
     template=template.replace("{{category}}", category)
-    template=template.replace("{{subcategory}}", subcategory )
+    template=template.replace("{{subcategory}}", subcategory)
     template=template.replace("{{points}}", str(points))
     template=template.replace("{{question}}",question)
     template=template.replace("{{answers}}",answers)
     template=template.replace("{{before}}",before)
     template=template.replace("{{after}}",after)
-    
+    template=template.replace("{{fun}}", fun)
     with open(path, "w", encoding="utf-8") as file:
         file.write(template)
         #data=json.loads(site)
