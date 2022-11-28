@@ -14,12 +14,12 @@ function getRandom(arr, n) {
 }
 async function getQuestions() {
     let response = await fetch('/data/questions.json');
-    let questions = await response.json();
-    //console.log(questions);
+    let quest = await response.json();
+    //console.log(quest);
 
     const grundstoff = [];
     const zusatzstoff= [];
-    for (const [k, v] of Object.entries(questions)) {
+    for (const [k, v] of Object.entries(quest)) {
         const sectionName = k.charAt(0);
         if(sectionName=="1"){
             grundstoff.push(v);
@@ -38,7 +38,31 @@ async function getQuestions() {
     .map(({ value }) => value)
     return questions_2
     }
- 
+async function getQuiz(){
+    points=[]
+    right_answers=[]
+    let quest = await getQuestions();
+    values=[]
+     for (const [k, v] of Object.entries(quest)){
+        //write question and answers to html-array
+        values.push(v)
+        //write right answers to quiz-array
+        right_answers.push(v.right_answers);
+        //write points to global points
+        points.push(v.points);
+     }
+    for (let id = 1; id < 31; id++) {
+        
+        document.getElementById('frage_'+ id.toString()).textContent = values[id-1].question;;
+        document.getElementById('punkte_'+ id.toString()).textContent = values[id-1].points;;
+        text=""
+        for (const [k, v] of Object.entries(values[id-1].answers)){
+            text+='<li><label><input type="checkbox" name="q'+id+'" value="'+k+'">'+v+'</label></li>'
+            }
+        document.getElementById("antworten_"+ id.toString()).innerHTML =text
+    }
+    return right_answers
+} 
 
 /*
     <!-- Question 1 -->
@@ -61,7 +85,7 @@ async function getQuestions() {
 function write_quiz(values){
     
 
-    const quest = document.getElementById('questions');
+    const quest = document.getElementById('quest');
     //quest.innerHTML="";
      for (const [k, v] of Object.entries(values)){
         console.log(k)
@@ -71,9 +95,9 @@ function write_quiz(values){
 }
 async function prepare_quiz(){ 
     answers=[]
-    let questions = await getQuestions();
-    //console.log(questions);
-    for (const [k, v] of Object.entries(questions)){
+    let quest = await getQuestions();
+    //console.log(quest);
+    for (const [k, v] of Object.entries(quest)){
         answers.push(v)     
     }
     return answers
@@ -150,27 +174,7 @@ async function prepare_quiz(){
  //Some code that takes the questions array and fills the Quiz questions in the html
  
  window.onload = async function() {
-    points=[]
-    right_answers=[]
-    let questions = await getQuestions();
-    values=[]
-     for (const [k, v] of Object.entries(questions)){
-        //write question and answers to html-array
-        values.push(v)
-        //write right answers to quiz-array
-        right_answers.push(v.right_answers);
-        //write points to global points
-        points.push(v.points);
-     }
-    for (let id = 1; id < 31; id++) {
-        document.getElementById('frage_'+ id.toString()).textContent = values[id-1].question;;
-        document.getElementById('punkte_'+ id.toString()).textContent = values[id-1].points;;
-        text=""
-        for (const [k, v] of Object.entries(values[id-1].answers)){
-            text+='<li><label><input type="checkbox" name="q'+id+'" value="'+k+'">'+v+'</label></li>'
-            }
-        document.getElementById("antworten_"+ id.toString()).innerHTML =text
-    }
+    let right_answers = await getQuiz();
      // Create quiz instances for each quiz and add them to the quizzes map.
      // The key is the ID of the quiz element, same as what we pass to the Quiz object as the first argument.
      //quizzes['1.1.01-003'] = new Quiz('1.1.01-003', [['a', 'b']]);
