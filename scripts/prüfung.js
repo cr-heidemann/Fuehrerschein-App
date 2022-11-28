@@ -29,7 +29,7 @@ async function getQuestions() {
         }
     }
           
-    grundstoff_selected=getRandom(grundstoff,20);
+    grundstoff_selected=getRandom(grundstoff,25);
     zusatzstoff_selected=getRandom(zusatzstoff,5);
     const fragen = grundstoff_selected.concat(zusatzstoff_selected); 
     let questions_2 = fragen
@@ -40,16 +40,35 @@ async function getQuestions() {
     }
  
 
-/*<li><label><input type="checkbox" name="q1" value="a">Nicht auf dem eigenen Recht bestehen</label></li>
+/*
+    <!-- Question 1 -->
+                <div class="card quizlib-question">
+                    <div class="quizlib-question-title"><h3 id="frage_01"></h3></div>
+                    <div class="quizlib-question-answers">
+                        <ul id="aaaa">
+                            
+                            <li><label><input type="checkbox" name="q1" value="a">Nicht auf dem eigenen Recht bestehen</label></li>
                             <li><label><input type="checkbox" name="q1" value="b">Mit Fehlern anderer rechnen</label></li>
                             <li><label><input type="checkbox" name="q1" value="c">Vorsorglich an jeder Kreuzung anhalten</label></li>
+    
+                            
+                        </ul>
+                    </div>
+                </div>
                             */
-async function fill_quiz(array){
-    let questions = await get_Questions();
+
+/*
+function write_quiz(values){
+    
+
     const quest = document.getElementById('questions');
+    //quest.innerHTML="";
+     for (const [k, v] of Object.entries(values)){
+        console.log(k)
+        quest.innerHTML+="                <!-- Question ${k + 1} -->"
+     }
 
 }
-/*
 async function prepare_quiz(){ 
     answers=[]
     let questions = await getQuestions();
@@ -68,6 +87,7 @@ async function prepare_quiz(){
  * For example: quizzes['quiz-1'] = [Quiz Object]
  */
  var quizzes = {};
+ var points=[];
 
  /**
   * Callback for answer buttons. The implementation for this will vary depending on your requirements.
@@ -130,12 +150,33 @@ async function prepare_quiz(){
  //Some code that takes the questions array and fills the Quiz questions in the html
  
  window.onload = async function() {
-     
+    points=[]
+    right_answers=[]
+    let questions = await getQuestions();
+    values=[]
+     for (const [k, v] of Object.entries(questions)){
+        //write question and answers to html-array
+        values.push(v)
+        //write right answers to quiz-array
+        right_answers.push(v.right_answers);
+        //write points to global points
+        points.push(v.points);
+     }
+    for (let id = 1; id < 31; id++) {
+        document.getElementById('frage_'+ id.toString()).textContent = values[id-1].question;;
+        document.getElementById('punkte_'+ id.toString()).textContent = values[id-1].points;;
+        text=""
+        for (const [k, v] of Object.entries(values[id-1].answers)){
+            text+='<li><label><input type="checkbox" name="q'+id+'" value="'+k+'">'+v+'</label></li>'
+            }
+        document.getElementById("antworten_"+ id.toString()).innerHTML =text
+    }
      // Create quiz instances for each quiz and add them to the quizzes map.
      // The key is the ID of the quiz element, same as what we pass to the Quiz object as the first argument.
      //quizzes['1.1.01-003'] = new Quiz('1.1.01-003', [['a', 'b']]);
      //right_answers=[] nested list of arrays with all right answers from above
-     //quizzes['prüfung'] = new Quiz('prüfung', [['a','b'],[]]); 
+     console.log(right_answers)
+     quizzes['prüfung'] = new Quiz('prüfung', right_answers); 
     //await
    //document.getElementById('frage_01').textContent = 'Hello \nlcr World!';;
     
