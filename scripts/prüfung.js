@@ -64,45 +64,7 @@ async function getQuiz(){
     return right_answers
 } 
 
-/*
-    <!-- Question 1 -->
-                <div class="card quizlib-question">
-                    <div class="quizlib-question-title"><h3 id="frage_01"></h3></div>
-                    <div class="quizlib-question-answers">
-                        <ul id="aaaa">
-                            
-                            <li><label><input type="checkbox" name="q1" value="a">Nicht auf dem eigenen Recht bestehen</label></li>
-                            <li><label><input type="checkbox" name="q1" value="b">Mit Fehlern anderer rechnen</label></li>
-                            <li><label><input type="checkbox" name="q1" value="c">Vorsorglich an jeder Kreuzung anhalten</label></li>
-    
-                            
-                        </ul>
-                    </div>
-                </div>
-                            */
 
-/*
-function write_quiz(values){
-    
-
-    const quest = document.getElementById('quest');
-    //quest.innerHTML="";
-     for (const [k, v] of Object.entries(values)){
-        console.log(k)
-        quest.innerHTML+="                <!-- Question ${k + 1} -->"
-     }
-
-}
-async function prepare_quiz(){ 
-    answers=[]
-    let quest = await getQuestions();
-    //console.log(quest);
-    for (const [k, v] of Object.entries(quest)){
-        answers.push(v)     
-    }
-    return answers
-}
-*/
 /**
 * Try this example at https://alpsquid.github.io/quizlib
 */
@@ -123,6 +85,11 @@ async function prepare_quiz(){
      var activeQuiz = quizzes[quizID];
      // Check answers and continue if all questions have been answered
      if (activeQuiz.checkAnswers()) {
+        r= activeQuiz.result.results
+        error=0
+        for (i=0; i < r.length; i++){
+            error += r[i];
+        } 
          var quizScorePercent = activeQuiz.result.scorePercentFormatted; // The unformatted percentage is a decimal in range 0 - 1
          var quizResultElement = document.getElementById('quiz-result');
          // Move the quiz result element to the active quiz, placing it after the quiz title.
@@ -136,11 +103,14 @@ async function prepare_quiz(){
          document.getElementById('quiz-percent').innerHTML = quizScorePercent.toString();
  
          // Change background colour of results div according to score percent
+         if (error >= 10) quizResultElement.style.backgroundColor = '#f44336';
+         else quizResultElement.style.backgroundColor = '#4caf50';
+         /*
          if (quizScorePercent >= 75) quizResultElement.style.backgroundColor = '#4caf50';
          else if (quizScorePercent >= 50) quizResultElement.style.backgroundColor = '#ffc107';
          else if (quizScorePercent >= 25) quizResultElement.style.backgroundColor = '#ff9800';
          else if (quizScorePercent >= 0) quizResultElement.style.backgroundColor = '#f44336';
-         
+         */
          // Highlight questions according to whether they were correctly answered. The callback allows us to highlight/show the correct answer
          activeQuiz.highlightResults(handleAnswers);
      }
