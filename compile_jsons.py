@@ -20,7 +20,7 @@ def make_html(files, json):
         template=temp.read()
     ID=json["ID"]
     category=json["category"]
-    subcategories={"Gefahrenlehre":"Gefahrenlehre", "Verhalten im Straßenverkehr":"Verhalten", "Vorfahrt, Vorrang":"Vorfahrt"}
+    subcategories={"Gefahrenlehre":"Gefahrenlehre", "Verhalten im Straßenverkehr":"Verhalten", "Vorfahrt, Vorrang":"Vorfahrt", "Verkehrszeichen":"Verkehrszeichen"}
     subcategory=subcategories[json["subcategory"]]
     points=json["points"]
     path="questions//" + subcategory + "//" + ID + ".html"
