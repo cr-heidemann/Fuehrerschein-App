@@ -50,3 +50,8 @@ function zufaellig_button_gefahrenlehre() {
     window.location.href = questions[Math.floor(Math.random() * questions.length)]
 }
 
+
+
+async function zufallsmodus_alle_fragen(){
+    
+}

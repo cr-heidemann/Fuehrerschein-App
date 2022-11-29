@@ -15,33 +15,21 @@ function getRandom(arr, n) {
 async function getQuestions() {
     let response = await fetch('/data/questions.json');
     let quest = await response.json();
-    //console.log(quest);
 
-    const grundstoff = [];
-    const zusatzstoff= [];
+    const alle_fragen = [];
     for (const [k, v] of Object.entries(quest)) {
-        const sectionName = k.charAt(0);
-        if(sectionName=="1"){
-            grundstoff.push(v);
-        }
-        if(sectionName=="2"){
-            zusatzstoff.push(v);
-        }
+        alle_fragen.push(v);
     }
           
-    grundstoff_selected=getRandom(grundstoff,25);
-    zusatzstoff_selected=getRandom(zusatzstoff,5);
-    const fragen = grundstoff_selected.concat(zusatzstoff_selected); 
-    let questions_2 = fragen
-    .map(value => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value)
-    return questions_2
+    const fragen=getRandom(alle_fragen,1);
+
+    return fragen
     }
 async function getQuiz(){
     points=[]
     right_answers=[]
     let quest = await getQuestions();
+    console.log(quest)
     values=[]
      for (const [k, v] of Object.entries(quest)){
         //write question and answers to html-array
@@ -51,7 +39,7 @@ async function getQuiz(){
         //write points to global points
         points.push(v.points);
      }
-    for (let id = 1; id < 31; id++) {
+    for (let id = 1; id < 2; id++) {
         
         source=""
         if(values[id-1].src.endsWith(".mp4")){source='<br><video width="500" height="300" controls><source src="'+ values[id-1].src+'" type="video/mp4"></video>'}
@@ -93,31 +81,24 @@ async function getQuiz(){
      // Check answers and continue if all questions have been answered
      if (activeQuiz.checkAnswers()) {
         r= activeQuiz.result.results
-        error=0
-        for (i=0; i < r.length; i++){
-            if (r[i]==0){error+=points[i]}
-        } 
-        console.log(error)
+        console.log(r[0])
+        
+        var quizResultElement = document.getElementById('quiz-result');
+        var quizElement = document.getElementById(quizID);
+        quizElement.insertBefore(quizResultElement, quizElement.children[1]);
 
-         var quizScorePercent = activeQuiz.result.scorePercentFormatted; // The unformatted percentage is a decimal in range 0 - 1
-         var quizResultElement = document.getElementById('quiz-result');
-         // Move the quiz result element to the active quiz, placing it after the quiz title.
-         var quizElement = document.getElementById(quizID);
-         quizElement.insertBefore(quizResultElement, quizElement.children[1]);
- 
-         // Show the result element and add result values.
-         // Change background colour of results div according to score percent
-         quizResultElement.style.display = 'block';
-         document.getElementById('quiz-score').innerHTML = error.toString();
-         if (error>10){
-            document.getElementById('quiz-result-text').innerHTML="nicht bestanden.";
-            quizResultElement.style.backgroundColor = '#f44336';}
-         if(error == 10 && zwei_fünfer==1){
-            document.getElementById('quiz-result-text').innerHTML="nicht bestanden, da zwei 5 Punkte fragen falsch beantwortet wurden.";
-            quizResultElement.style.backgroundColor = '#f44336';;}
-         if(error<=10 && zwei_fünfer){
-            document.getElementById('quiz-result-text').innerHTML="bestanden.";
+        // Show the result element and add result values.
+        // Change background colour of results div according to score percent
+        quizResultElement.style.display = 'block';
+         if (r[0]===true){
+            console.log("hier")
+            document.getElementById('quiz-result-text').textContent="richtig!";
             quizResultElement.style.backgroundColor = '#4caf50';}
+        else{console.log("da");document.getElementById('quiz-result-text').textContent="falsch!";
+        quizResultElement.style.backgroundColor = '#f44336';
+
+        }
+         
          
  
          
@@ -167,7 +148,7 @@ async function getQuiz(){
      //quizzes['1.1.01-003'] = new Quiz('1.1.01-003', [['a', 'b']]);
      //right_answers=[] nested list of arrays with all right answers from above
      console.log(right_answers)
-     quizzes['prüfung'] = new Quiz('prüfung', right_answers); 
+     quizzes['zufall'] = new Quiz('zufall', right_answers); 
     //await
    //document.getElementById('frage_01').textContent = 'Hello \nlcr World!';;
     
