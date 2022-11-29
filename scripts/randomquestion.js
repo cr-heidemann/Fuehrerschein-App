@@ -51,7 +51,3 @@ function zufaellig_button_gefahrenlehre() {
 }
 
 
-
-async function zufallsmodus_alle_fragen(){
-    
-}
