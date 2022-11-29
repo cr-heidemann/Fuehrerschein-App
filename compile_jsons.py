@@ -32,10 +32,11 @@ def make_html(files, json):
     points=json["points"]
     path="questions//" + subcategory + "//" + ID + ".html"
     src=""
+    
     if json["src"].endswith(".png"):
-        src='<img src="'+ json["src"]+'" width="500" height="300">'
+        src='<img src="/'+ json["src"]+'" width="500" height="300">'
     elif json["src"].endswith(".mp4"):
-        src='<video width="500" height="300" controls><source src="'+ src+'" type="video/mp4"></video>'
+        src='<video width="500" height="300" controls><source src="/'+ src+'" type="video/mp4"></video>'
 
     index=files[ID[2]].index(ID)
     #print(index)
@@ -56,9 +57,16 @@ def make_html(files, json):
         # <li><label><input type="checkbox" name="q1" value="{{key}}"> {{value}}</label></li>
         answers+='                        <li><label><input type="checkbox" name="q1" value="'+key+'">'+value+'</label></li>' +"\n"
         
-    map_category_func={"Gefahrenlehre":"zufaellig_button_gefahrenlehre()",
+    map_category_func={"Gefahrenlehre":"zufallsmodus_gefahrenlehre()",
+                       "Verhalten":"zufallsmodus_verhalten()",
+                       "Vorfahrt":"zufallsmodus_vorfahrt()",
+                       "Verkehrszeichen":"zufallsmodus_verkehrszeichen()",
+                       "Umweltschutz":"",
+                       "Technik":"",
+                       "Eignung":"",
+                       "Betriebsvorschriften":""
                        }  
-    fun=""
+    
     for key, value in map_category_func.items():
         if subcategory == key:
             fun=value
