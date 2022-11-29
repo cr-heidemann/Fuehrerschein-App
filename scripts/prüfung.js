@@ -53,9 +53,15 @@ async function getQuiz(){
      }
     for (let id = 1; id < 31; id++) {
         
+        source=""
+        if(values[id-1].src.endsWith(".mp4")){source='<br><video width="500" height="300" controls><source src="'+ values[id-1].src+'" type="video/mp4"></video>'}
+        if(values[id-1].src.endsWith(".png")){source='<br><img src="'+ values[id-1].src+'" width="500" height="300">'}
+
         document.getElementById('frage_'+ id.toString()).textContent = values[id-1].question;;
         document.getElementById('punkte_'+ id.toString()).textContent = values[id-1].points;;
+        document.getElementById('punkte_'+ id.toString()).innerHTML += source;;
         text=""
+     
         for (const [k, v] of Object.entries(values[id-1].answers)){
             text+='<li><label><input type="checkbox" name="q'+id+'" value="'+k+'">'+v+'</label></li>'
             }
@@ -83,13 +89,16 @@ async function getQuiz(){
  function showResults(quizID) {
      // Retrieve the quiz instance for this quiz element from the map.
      var activeQuiz = quizzes[quizID];
+     zwei_fünfer=0 //set to 1 if 2 or more 5 point questions have been answered wrong
      // Check answers and continue if all questions have been answered
      if (activeQuiz.checkAnswers()) {
         r= activeQuiz.result.results
         error=0
         for (i=0; i < r.length; i++){
-            error += r[i];
+            if (r[i]==0){error+=points[i]}
         } 
+        console.log(error)
+
          var quizScorePercent = activeQuiz.result.scorePercentFormatted; // The unformatted percentage is a decimal in range 0 - 1
          var quizResultElement = document.getElementById('quiz-result');
          // Move the quiz result element to the active quiz, placing it after the quiz title.
@@ -97,14 +106,20 @@ async function getQuiz(){
          quizElement.insertBefore(quizResultElement, quizElement.children[1]);
  
          // Show the result element and add result values.
-         quizResultElement.style.display = 'block';
-         document.getElementById('quiz-score').innerHTML = activeQuiz.result.score.toString();
-         document.getElementById('quiz-max-score').innerHTML = activeQuiz.result.totalQuestions.toString();
-         document.getElementById('quiz-percent').innerHTML = quizScorePercent.toString();
- 
          // Change background colour of results div according to score percent
-         if (error >= 10) quizResultElement.style.backgroundColor = '#f44336';
-         else quizResultElement.style.backgroundColor = '#4caf50';
+         quizResultElement.style.display = 'block';
+         document.getElementById('quiz-score').innerHTML = error.toString();
+         if (error>10){
+            document.getElementById('quiz-result-text').innerHTML="nicht bestanden.";
+            quizResultElement.style.backgroundColor = '#f44336';}
+         if(error == 10 && zwei_fünfer==1){
+            document.getElementById('quiz-result-text').innerHTML="nicht bestanden, da zwei 5 Punkte fragen falsch beantwortet wurden."}
+         if(error<=10 && zwei_fünfer){
+            document.getElementById('quiz-result-text').innerHTML="bestanden."}
+         
+ 
+         
+         
          /*
          if (quizScorePercent >= 75) quizResultElement.style.backgroundColor = '#4caf50';
          else if (quizScorePercent >= 50) quizResultElement.style.backgroundColor = '#ffc107';
