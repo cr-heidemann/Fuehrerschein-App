@@ -20,7 +20,14 @@ def make_html(files, json):
         template=temp.read()
     ID=json["ID"]
     category=json["category"]
-    subcategories={"Gefahrenlehre":"Gefahrenlehre", "Verhalten im Straßenverkehr":"Verhalten", "Vorfahrt, Vorrang":"Vorfahrt", "Verkehrszeichen":"Verkehrszeichen"}
+    subcategories={"Gefahrenlehre":"Gefahrenlehre",
+                   "Verhalten im Straßenverkehr":"Verhalten",
+                   "Vorfahrt, Vorrang":"Vorfahrt",
+                   "Verkehrszeichen":"Verkehrszeichen",
+                   "Umweltschutz":"Umweltschutz",
+                   "Technik":"Technik",
+                   "Eignung und Befähigung von Kraftfahrern":"Eignung",
+                   "Vorschriften über den Betrieb der Fahrzeuge":"Betriebsvorschriften"}
     subcategory=subcategories[json["subcategory"]]
     points=json["points"]
     path="questions//" + subcategory + "//" + ID + ".html"
@@ -49,10 +56,11 @@ def make_html(files, json):
         # <li><label><input type="checkbox" name="q1" value="{{key}}"> {{value}}</label></li>
         answers+='                        <li><label><input type="checkbox" name="q1" value="'+key+'">'+value+'</label></li>' +"\n"
         
-    map_category_func={"gefahrenlehre":"zufaellig_button_gefahrenlehre()"}
+    map_category_func={"Gefahrenlehre":"zufaellig_button_gefahrenlehre()",
+                       }  
     fun=""
     for key, value in map_category_func.items():
-        if subcategory.lower() in key:
+        if subcategory == key:
             fun=value
             
     template=template.replace("{{ID}}", ID)
