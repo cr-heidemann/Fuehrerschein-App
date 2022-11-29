@@ -24,7 +24,12 @@ def make_html(files, json):
     subcategory=subcategories[json["subcategory"]]
     points=json["points"]
     path="questions//" + subcategory + "//" + ID + ".html"
-    
+    src=""
+    if json["src"].endswith(".png"):
+        src='<img src="'+ json["src"]+'" width="500" height="300">'
+    elif json["src"].endswith(".mp4"):
+        src='<video width="500" height="300" controls><source src="'+ src+'" type="video/mp4"></video>'
+
     index=files[ID[2]].index(ID)
     #print(index)
     if index == 0:
@@ -54,6 +59,7 @@ def make_html(files, json):
     template=template.replace("{{category}}", category)
     template=template.replace("{{subcategory}}", subcategory)
     template=template.replace("{{points}}", str(points))
+    template=template.replace("{{source}}", src)
     template=template.replace("{{question}}",question)
     template=template.replace("{{answers}}",answers)
     template=template.replace("{{before}}",before)
