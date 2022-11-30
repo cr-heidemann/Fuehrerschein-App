@@ -61,10 +61,10 @@ def make_html(files, json):
                        "Verhalten":"zufallsmodus_verhalten()",
                        "Vorfahrt":"zufallsmodus_vorfahrt()",
                        "Verkehrszeichen":"zufallsmodus_verkehrszeichen()",
-                       "Umweltschutz":"",
-                       "Technik":"",
-                       "Eignung":"",
-                       "Betriebsvorschriften":""
+                       "Umweltschutz":"zufallsmodus_umweltschutz()",
+                       "Technik":"zufallsmodus_technik()",
+                       "Eignung":"zufallsmodus_eignung()",
+                       "Betriebsvorschriften":"zufallsmodus_betriebsvorschriften()"
                        }  
     
     for key, value in map_category_func.items():
