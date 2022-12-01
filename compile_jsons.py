@@ -15,7 +15,7 @@ def process(path):
 
 
 def make_html(files, json):
-    ROOT="/Themenübersicht.html"
+    
     with open("data//quiz.template.html", "r", encoding="utf-8") as temp:
         template=temp.read()
     ID=json["ID"]
@@ -41,13 +41,11 @@ def make_html(files, json):
     index=files[ID[2]].index(ID)
     #print(index)
     if index == 0:
-        #before="../"+subcategory+".html"
-        before=ROOT
+        before="../"+subcategory+".html"
         after=files[ID[2]][index+1]+".html"
     elif index == len(files[ID[2]]) -1:
         before=files[ID[2]][index-1]+".html"
-        #after="../"+subcategory+".html"
-        after=ROOT
+        after="../"+subcategory+".html"
     else:
         before=files[ID[2]][index-1]+".html"
         after=files[ID[2]][index+1]+".html"
